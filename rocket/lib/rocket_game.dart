@@ -17,7 +17,7 @@ class RocketGame extends Game {
 
   void init() async {
     resize(await Flame.util.initialDimensions());
-    rocket = new Rocket();
+    rocket = new Rocket(screenSize);
   }
 
   @override

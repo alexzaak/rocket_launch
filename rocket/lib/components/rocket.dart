@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
@@ -7,10 +9,10 @@ class Rocket extends SpriteComponent {
   final Sprite _rocketOff = new Sprite('rocket/rocket_off.png');
   final Sprite _rocketOn = new Sprite('rocket/rocket_on.png');
 
-  Rocket() : super.rectangle(110, 177, 'rocket/rocket_off.png') {
+  Rocket(Size screenSize) : super.rectangle(110, 177, 'rocket/rocket_off.png') {
     this.angle = 0.0;
-    this.x = 0.0;
-    this.y = 0.0;
+    this.x = (screenSize.width - 110) / 2;
+    this.y = screenSize.height - 246;
   }
 
   @override
@@ -20,13 +22,13 @@ class Rocket extends SpriteComponent {
 
   void onTapDown() {
     this.sprite = _rocketOn;
-    this.width=110;
-    this.height=246;
+    this.width = 110;
+    this.height = 246;
   }
 
   void onTabUp() {
     this.sprite = _rocketOff;
-    this.width=110;
-    this.height=177;
+    this.width = 110;
+    this.height = 177;
   }
 }
