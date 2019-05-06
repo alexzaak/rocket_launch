@@ -1,8 +1,5 @@
 import 'dart:math';
-import 'dart:ui';
 
-import 'package:box2d_flame/box2d.dart';
-import 'package:flame/box2d/box2d_component.dart';
 import 'package:flame/box2d/viewport.dart';
 import 'package:rocket/utils/v_parallax_component.dart';
 
@@ -16,11 +13,11 @@ class BackgroundComponent extends VerticalParallaxComponent {
 
   void _loadImages() {
     var filenames = new List<String>();
-      filenames.add("layers/background.png");
-      filenames.add("layers/big_planet.png");
-      filenames.add("layers/ring_planet.png");
-      filenames.add("layers/far_planets.png");
-      filenames.add("layers/stars.png");
+    filenames.add("layers/background.png");
+    filenames.add("layers/stars.png");
+    filenames.add("layers/far_planets.png");
+    filenames.add("layers/ring_planet.png");
+    filenames.add("layers/big_planet.png");
 
     load(filenames);
   }
@@ -31,7 +28,7 @@ class BackgroundComponent extends VerticalParallaxComponent {
       return;
     }
 
-    this.y+=1;
+    this.y += 1;
 
     for (var i = 1; i <= 5; i++) {
       if (i <= 2) {
@@ -58,10 +55,10 @@ class BackgroundComponent2 extends VerticalParallaxComponent {
   void _loadImages() {
     var filenames = new List<String>();
     filenames.add("layers/background2.png");
-    filenames.add("layers/big_planet.png");
-    filenames.add("layers/ring_planet.png");
-    filenames.add("layers/far_planets.png");
     filenames.add("layers/stars.png");
+    filenames.add("layers/far_planets.png");
+    filenames.add("layers/ring_planet.png");
+    filenames.add("layers/big_planet.png");
 
     load(filenames);
   }
@@ -72,7 +69,7 @@ class BackgroundComponent2 extends VerticalParallaxComponent {
       return;
     }
 
-    this.y+=1;
+    this.y += 1;
 
     for (var i = 1; i <= 5; i++) {
       if (i <= 2) {

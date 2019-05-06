@@ -27,10 +27,10 @@ class Rocket extends BodyComponent {
 
   @override
   void update(double t) {
-    // print("x ${body.linearVelocity.x.abs()} y ${body.linearVelocity.y.abs()} ${body.linearVelocity.y}");
+    /*  print("x ${body.linearVelocity.x.abs()} y ${body.linearVelocity.y.abs()} ${body.linearVelocity.y}");
     this.idle =
         body.linearVelocity.x.abs() < 0.1 && body.linearVelocity.y.abs() < 0.1;
-    this.forward = body.linearVelocity.y >= 0.0;
+    this.forward = body.linearVelocity.y >= 0.0;*/
   }
 
   @override
@@ -86,6 +86,7 @@ class Rocket extends BodyComponent {
   void stop() {
     body.linearVelocity = new Vector2(0.0, 0.0);
     body.angularVelocity = 0.0;
+    this.idle = true;
   }
 
   void engine(bool enabled) {
@@ -99,6 +100,8 @@ class Rocket extends BodyComponent {
   }
 
   Drag handleDrag(Offset position) {
+    this.idle = false;
+    this.forward = true;
     return new HandleRocketDrag(this);
   }
 
@@ -123,6 +126,16 @@ class HandleRocketDrag extends Drag {
     Vector2 force = new Vector2(velocity.dx, -velocity.dy)
       ..scale(2.0);
     rocket.body.applyLinearImpulse(force, rocket.center, true);
+    //print("angle ${rocket.body.getAngle()} x ${velocity.dx} y ${velocity.dy}");
+
+    if (velocity.dx < 0) {
+      rocket.body.setTransform(rocket.body.position, 345.0);
+    }
+
+    if (velocity.dx > 0) {
+      rocket.body.setTransform(rocket.body.position, 45.0);
+    }
+    rocket.body.synchronizeTransform();
   }
 }
 

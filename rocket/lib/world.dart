@@ -49,7 +49,7 @@ class World extends Box2DComponent {
       backgroundComponent2.update(t);
     }
     super.update(t);
-    cameraFollow(rocket, horizontal: viewport.width, vertical: 0.4);
+    cameraFollow(rocket, horizontal: 1.5, vertical: 1.5);
 
     lightYears = (_scors / 100).ceil();
     _scors++;
