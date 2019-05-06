@@ -30,10 +30,11 @@ class World extends Box2DComponent {
 
   @override
   void render(Canvas canvas) {
-    if (lightYears <= 2300) {
+    if (lightYears <= 130) {
       backgroundComponent.render(canvas);
     }
-    if (lightYears >= 2000) {
+
+    if (lightYears >= 100) {
       backgroundComponent2.render(canvas);
     }
     super.render(canvas);
@@ -42,10 +43,12 @@ class World extends Box2DComponent {
 
   @override
   void update(t) {
-    if (lightYears <= 2300) {
+    if (lightYears <= 130) {
       backgroundComponent.update(t);
+    } else {
+      backgroundComponent.destroy();
     }
-    if (lightYears >= 2000) {
+    if (lightYears >= 100) {
       backgroundComponent2.update(t);
     }
     super.update(t);

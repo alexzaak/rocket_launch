@@ -33,20 +33,32 @@ class VerticalParallaxRenderer {
         (rect.height / imageHeight) * (image.width / window.devicePixelRatio);
     var count = rect.height / imageWidth;
 
-    Rect fullRect = new Rect.fromLTWH(
-        -scroll * imageWidth, -rect.height * imageHeight,
-        (count + 1) * imageWidth, rect.height * imageHeight);
+    // print("measers: $imageHeight and $imageWidth and $count");
+
+    Rect fullRect = new Rect.fromLTWH(-imageWidth, -rect.height * imageHeight,
+        imageWidth + 1200.0, rect.bottom * imageHeight + 800.0);
+
+    Rect fullRect2 = new Rect.fromLTRB(
+        -imageWidth, -imageHeight * rect.height, 1200.0,
+        scroll * imageHeight * rect.height);
+
+    //  print(fullRect2);
+
+    //  print(rect);
+
+    //   print("scroll $scroll and ${(count + 1)}");
+
     paintImage(
       canvas: canvas,
       image: image,
-      rect: fullRect,
+      rect: fullRect2,
       repeat: ImageRepeat.repeatY,
     );
   }
 }
 
 abstract class VerticalParallaxComponent extends PositionComponent {
-  final BASE_SPEED = 30;
+  final BASE_SPEED = 25;
   final LAYER_DELTA = 40;
 
   List<VerticalParallaxRenderer> _layers = new List();
@@ -106,10 +118,12 @@ abstract class VerticalParallaxComponent extends PositionComponent {
     }
     for (int i = 0; i < _layers.length; i++) {
       double scroll = _layers[i].scroll;
-      scroll += (BASE_SPEED + i * LAYER_DELTA) * delta / _size.width;
+      scroll += (BASE_SPEED + 1 * LAYER_DELTA) * delta / _size.height;
       if (scroll > 1) {
         scroll = scroll % 1;
       }
+
+      print("scroll: $scroll");
       _layers[i].scroll = scroll;
     }
   }
