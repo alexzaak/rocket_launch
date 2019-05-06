@@ -1,10 +1,9 @@
 import 'dart:ui';
 
-import 'package:flame/box2d/viewport.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/gestures.dart';
-import 'package:rocket/levels/space.dart';
+import 'package:flutter/gestures.dart'
+    show Drag, Offset, TapDownDetails, TapUpDetails;
 import 'package:rocket/world.dart';
 
 class RocketGame extends Game {
@@ -38,11 +37,19 @@ class RocketGame extends Game {
   }
 
   void onTapUp(TapUpDetails d) {
-    //   rocket.onTabUp();
+    world.handleTap(d.globalPosition);
   }
 
   void onTapCancel() {
     //  rocket.onTabUp();
+  }
+
+  Drag onDragStart(Offset position) {
+    return world.handleDrag(position);
+  }
+
+  Drag onDragEnd(Offset position) {
+    return world.handleDrag(position);
   }
 
   @override

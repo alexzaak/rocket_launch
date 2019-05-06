@@ -1,7 +1,7 @@
+import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/flame.dart';
 import 'package:flutter/services.dart';
 import 'package:rocket/rocket_game.dart';
 
@@ -27,4 +27,8 @@ main() async {
   longPress.onLongPressUp = game.onLongPressUp;
 
   flameUtil.addGestureRecognizer(longPress);
+
+  ImmediateMultiDragGestureRecognizer drag = ImmediateMultiDragGestureRecognizer();
+  drag.onStart = game.onDragStart;
+  flameUtil.addGestureRecognizer(drag);
 }

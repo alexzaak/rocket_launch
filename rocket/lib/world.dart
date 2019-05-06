@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/box2d/box2d_component.dart';
+import 'package:flutter/gestures.dart';
 import 'package:rocket/components/light_years_counter.dart';
 import 'package:rocket/components/rocket.dart';
 import 'package:rocket/levels/space.dart';
@@ -13,6 +14,7 @@ class World extends Box2DComponent {
   ScoreDisplay scoreDisplay;
 
   int lightYears = 0;
+  int _scors = 0;
 
   World() : super(scale: 4.0);
 
@@ -47,17 +49,23 @@ class World extends Box2DComponent {
       backgroundComponent2.update(t);
     }
     super.update(t);
-    cameraFollow(rocket, horizontal: 0.4, vertical: 0.4);
+    cameraFollow(rocket, horizontal: viewport.width, vertical: 0.4);
 
-    lightYears++;
+    lightYears = (_scors / 100).ceil();
+    _scors++;
     scoreDisplay.update(t);
   }
 
   void handleTap(Offset position) {
-    // rocket.fly();
+    //rocket.engine(true);
+    rocket.stop();
   }
 
   void handlePress(bool pressDown) {
-    rocket.engine(pressDown);
+    // rocket.engine(pressDown);
+  }
+
+  Drag handleDrag(Offset position) {
+    return rocket.handleDrag(position);
   }
 }

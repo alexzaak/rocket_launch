@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:box2d_flame/box2d.dart';
 import 'package:flame/box2d/box2d_component.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/painting.dart';
 import 'package:rocket/utils.dart';
 
@@ -26,8 +27,8 @@ class Rocket extends BodyComponent {
 
   @override
   void update(double t) {
-   // print("x ${body.linearVelocity.x.abs()} y ${body.linearVelocity.y.abs()} ${body.linearVelocity.y}");
-     this.idle =
+    // print("x ${body.linearVelocity.x.abs()} y ${body.linearVelocity.y.abs()} ${body.linearVelocity.y}");
+    this.idle =
         body.linearVelocity.x.abs() < 0.1 && body.linearVelocity.y.abs() < 0.1;
     this.forward = body.linearVelocity.y >= 0.0;
   }
@@ -73,7 +74,7 @@ class Rocket extends BodyComponent {
 
   void input(Offset position) {
     Vector2 force =
-        position.dy < 250 ? new Vector2(0.0, -1.0) : new Vector2(0.0, 1.0);
+    position.dy < 250 ? new Vector2(0.0, -1.0) : new Vector2(0.0, 1.0);
     body.applyForce(force..scale(10000.0), center);
   }
 
@@ -96,6 +97,34 @@ class Rocket extends BodyComponent {
       body.applyForce(force..scale(10000.0), center);
     }
   }
+
+  Drag handleDrag(Offset position) {
+    return new HandleRocketDrag(this);
+  }
+
+}
+
+class HandleRocketDrag extends Drag {
+  Rocket rocket;
+
+  HandleRocketDrag(this.rocket);
+
+  @override
+  void update(DragUpdateDetails details) {
+    impulse(details.delta);
+  }
+
+  @override
+  void end(DragEndDetails details) {
+    impulse(details.velocity.pixelsPerSecond);
+  }
+
+  void impulse(Offset velocity) {
+    Vector2 force = new Vector2(velocity.dx, -velocity.dy)
+      ..scale(2.0);
+    rocket.body.applyLinearImpulse(force, rocket.center, true);
+  }
+}
 
 /*static const int SPEED = 200;
 
@@ -129,4 +158,4 @@ class Rocket extends BodyComponent {
     this.width = 110;
     this.height = 177;
   }*/
-}
+
