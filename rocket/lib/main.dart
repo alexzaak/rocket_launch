@@ -6,13 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:rocket/rocket_game.dart';
 
 main() async {
+  Flame.initializeWidget();
   Flame.audio.disableLog();
-
-  Flame.images.loadAll(<String>[
-    'rocket/rocket_on.png',
-    'rocket/rocket_off.png',
-    'rocket/platform.png',
-  ]);
 
   Util flameUtil = Util();
   await flameUtil.fullScreen();
@@ -26,4 +21,10 @@ main() async {
   tapper.onTapUp = game.onTapUp;
   tapper.onTapCancel = game.onTapCancel;
   flameUtil.addGestureRecognizer(tapper);
+
+  LongPressGestureRecognizer longPress = LongPressGestureRecognizer();
+  longPress.onLongPress = game.onLongPressDown;
+  longPress.onLongPressUp = game.onLongPressUp;
+
+  flameUtil.addGestureRecognizer(longPress);
 }

@@ -47,6 +47,12 @@ flutter:
    - assets/images/rocket/rocket_on.png
    - assets/images/rocket/rocket_off.png
    - assets/images/rocket/platform.png
+   - assets/images/layers/background.png
+   - assets/images/layers/background2.png
+   - assets/images/layers/big_planet.png
+   - assets/images/layers/far_planets.png
+   - assets/images/layers/ring_planet.png
+   - assets/images/layers/stars.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

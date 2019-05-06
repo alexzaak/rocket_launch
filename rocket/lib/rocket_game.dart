@@ -1,51 +1,60 @@
 import 'dart:ui';
 
+import 'package:flame/box2d/viewport.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
-import 'package:rocket/components/rocket.dart';
+import 'package:rocket/levels/space.dart';
+import 'package:rocket/world.dart';
 
 class RocketGame extends Game {
+  World world = new World();
   Size screenSize;
   double tileSize;
 
-  Rocket rocket;
-
   RocketGame() {
+
+
     init();
   }
 
   void init() async {
     resize(await Flame.util.initialDimensions());
-    rocket = new Rocket(screenSize);
+    world.initializeWorld();
   }
 
   @override
   void render(Canvas canvas) {
-    rocket.render(canvas);
+    world.render(canvas);
   }
 
   @override
   void update(double t) {
-    rocket.update(t);
+    world.update(t);
   }
 
   void onTapDown(TapDownDetails d) {
-    rocket.onTapDown();
+    world.handleTap(d.globalPosition);
   }
 
   void onTapUp(TapUpDetails d) {
-    rocket.onTabUp();
+    //   rocket.onTabUp();
   }
 
   void onTapCancel() {
-    rocket.onTabUp();
+    //  rocket.onTabUp();
   }
 
+  @override
   void resize(Size size) {
-    screenSize = size;
-    tileSize = screenSize.width / 9;
+    world.resize(size);
   }
 
+  void onLongPressDown() {
+    world.handlePress(true);
+  }
 
+  void onLongPressUp() {
+    world.handlePress(false);
+  }
 }
